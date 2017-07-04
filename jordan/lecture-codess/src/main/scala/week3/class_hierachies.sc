@@ -42,7 +42,7 @@ class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet {
 
   override def toString: String = "{" + left + elem + right + "}"
 
-  def union(other: union): IntSet = {
+  def union(other: IntSet): IntSet = {
     left.union(right).union(other).incl(elem) // contains left, right, elem and other
     // how do we know that it terminates, the sub calls are smaller
     // dynamic method dispatch model

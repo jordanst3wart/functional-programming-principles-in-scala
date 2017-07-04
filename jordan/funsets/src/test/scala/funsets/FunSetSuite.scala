@@ -74,9 +74,9 @@ class FunSetSuite extends FunSuite {
    */
 
   trait TestSets {
-    val s1 = singletonSet(1)
-    val s2 = singletonSet(2)
-    val s3 = singletonSet(3)
+    val s1: Set = singletonSet(1)
+    val s2: Set = singletonSet(2)
+    val s3: Set = singletonSet(3)
   }
 
   /**
@@ -107,6 +107,33 @@ class FunSetSuite extends FunSuite {
       assert(contains(s, 1), "Union 1")
       assert(contains(s, 2), "Union 2")
       assert(!contains(s, 3), "Union 3")
+    }
+  }
+
+  test("intersects all cases work") {
+    new TestSets {
+      // 1. nothing in common
+      assert(intersect(s1,s2) == Set(), "Intersect 1")
+      // 2. something in common
+      assert(intersect(s1,Set(1)) == Set(1), "Intersect 2")
+    }
+  }
+
+  test("diff all cases work"){
+    new TestSets {
+      // 1. nothing in common
+      assert(diff(s1,s2) == Set(1), "Diff 1")
+      // 2. something in common
+      assert(diff(s1,Set(1)) == Set(), "Diff 2")
+    }
+  }
+
+  test("Filter all cases work"){
+    new TestSets {
+      // 1. nothing in common
+      assert(filter(s1,s2) == Set(1), "Filter 1")
+      // 2. something in common
+      assert(filter(s1,Set(1)) == Set(), "Filter 2")
     }
   }
 

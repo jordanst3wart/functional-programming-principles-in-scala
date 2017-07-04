@@ -68,13 +68,14 @@ object FunSets {
    */
     def exists(s: Set, p: Int => Boolean): Boolean = {
        def t: Set = x => !contains(s,x)
-      !forall(t, p)
+      !forall(t, p) // !forall(t, x => !p(x))
     } // test that all of s is outside of p, and true the inverse
 
   /**
    * Returns a set transformed by applying `f` to each element of `s`.
    */
-    def map(s: Set, f: Int => Int): Set = {
+    def map(s: Set, f: Int => Int): Set = x => exists(s, y => f(y) == x )
+    /*{
       def iter(a: Int, x: Set): Set = {
         if (a > bound ) x
         else {
@@ -83,7 +84,7 @@ object FunSets {
         }
       }
       iter( -bound, Set())
-    }
+    }*/
   
   /**
    * Displays the contents of a set
