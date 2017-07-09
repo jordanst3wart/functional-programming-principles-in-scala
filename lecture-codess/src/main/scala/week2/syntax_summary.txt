@@ -1,0 +1,39 @@
+
+
+Extended Backus-Naur form
++ alternative
+[ ] 0, or 1
+{ } 0, or more
+
+Type = SimpleType | FunctionType
+FunctionType = SimpleType '=>' Type
+                | '(' [ Types ] ')' ''=>' Type
+SimpleType = Ident
+Types = Type { ',' Type }
+
+Type can be numeric: Int, Double
+Boolean type
+String type
+Function Type Int => Int
+
+identifier              x, isGoodEnough
+literal                 1.0, 0, "abc"
+function application    sqrt(x)
+operator application    -x
+selection               math.abs
+conditional expression  if (x<0) -x else x
+block                   { val x math.abs(y); x * 2 }
+anonymous function      x => x + 1
+
+
+Def FunDef
+FunDef
+ValDef
+Parameter
+Parameters
+
+call-by-value parameter (x: Int)
+call-by-name parameter (y: => Double)
+
+
+
