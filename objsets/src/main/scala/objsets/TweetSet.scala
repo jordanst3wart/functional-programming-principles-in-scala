@@ -243,14 +243,24 @@ object GoogleVsApple {
   val google = List("android", "Android", "galaxy", "Galaxy", "nexus", "Nexus")
   val apple = List("ios", "iOS", "iphone", "iPhone", "ipad", "iPad")
 
-  lazy val googleTweets: TweetSet = ???
-  lazy val appleTweets: TweetSet = ???
+  private def isIn(list: List[String], tweet: Tweet):Boolean = {
+    list.exists(str => str.contains(tweet.text))
+  }
+
+  // contains a word in google list
+  lazy val googleTweets: TweetSet = TweetReader.allTweets.filter( tw => isIn(google,tw))
+
+  // contains a word in the apple list
+  lazy val appleTweets: TweetSet = TweetReader.allTweets.filter( tw => isIn(google,tw))
+  // exists method of List, and contains method of java.lang.String
   
   /**
    * A list of all tweets mentioning a keyword from either apple or google,
    * sorted by the number of retweets.
    */
-     lazy val trending: TweetList = ???
+  lazy val trending: TweetList = googleTweets.union(appleTweets).descendingByRetweet
+
+
 }
 
 object Main extends App {
