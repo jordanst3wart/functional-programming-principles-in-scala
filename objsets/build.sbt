@@ -15,3 +15,4 @@ commonSourcePackages += "common"
 
 courseId := "bRPXgjY9EeW6RApRXdjJPw"
 
+// submit with `sbt submit email token`

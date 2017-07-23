@@ -82,8 +82,10 @@ abstract class TweetSet {
    * Question: Should we implment this method here, or should it remain abstract
    * and be implemented in the subclasses?
    */
-    def descendingByRetweet: TweetList = {
+    def descendingByRetweet: TweetList = Nil /* {
       // add to tail
+
+      @tailrec
       def Iter(tweetSet: TweetSet, tweetList: TweetList): TweetList = {
         if(tweetSet.isEmpty) tweetList
         else {
@@ -95,7 +97,7 @@ abstract class TweetSet {
 
       if (this.isEmpty) Nil
       else Iter(this, Nil) //new Cons(mostRetweeted, Nil)
-    }
+    } */
 
     val isEmpty: Boolean
   
@@ -173,7 +175,8 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
   // maybe this could be implemented as an non-abstract method with a higher order function, but idk, maybe with foreach ???
   def union(that: TweetSet): TweetSet = left.union(right).union(that).incl(elem)
 
-  def searchTree(op: (Int, Int) => Boolean, specialTweet: Tweet): Tweet = {
+  @tailrec
+  final def searchTree(op: (Int, Int) => Boolean, specialTweet: Tweet): Tweet = {
     if(op(elem.retweets, specialTweet.retweets) ) searchTree(op, elem)
     else {
       if (!left.isEmpty) left.searchTree(op, specialTweet)
@@ -243,23 +246,28 @@ object GoogleVsApple {
   val google = List("android", "Android", "galaxy", "Galaxy", "nexus", "Nexus")
   val apple = List("ios", "iOS", "iphone", "iPhone", "ipad", "iPad")
 
-  private def isIn(list: List[String], tweet: Tweet):Boolean = {
+  private def isIn(list: List[String], tweet: Tweet): Boolean = {
     list.exists(str => str.contains(tweet.text))
   }
 
+  private lazy val allTweets = TweetReader.allTweets
+
   // contains a word in google list
-  lazy val googleTweets: TweetSet = TweetReader.allTweets.filter( tw => isIn(google,tw))
+  lazy val googleTweets: TweetSet = ??? //allTweets.filter( tw => isIn(google,tw))
 
   // contains a word in the apple list
-  lazy val appleTweets: TweetSet = TweetReader.allTweets.filter( tw => isIn(google,tw))
+  lazy val appleTweets: TweetSet = ??? //allTweets.filter( tw => isIn(apple,tw))
   // exists method of List, and contains method of java.lang.String
   
   /**
    * A list of all tweets mentioning a keyword from either apple or google,
    * sorted by the number of retweets.
    */
-  lazy val trending: TweetList = googleTweets.union(appleTweets).descendingByRetweet
-
+  lazy val trending: TweetList = ???
+  /*{
+    //googleTweets.union(appleTweets).descendingByRetweet
+    googleTweets.descendingByRetweet
+  }*/
 
 }
 
