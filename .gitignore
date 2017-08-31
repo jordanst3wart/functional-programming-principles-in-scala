@@ -4,3 +4,23 @@
 lecture-codess/project/target/**
 
 lecture-codess/target/**
+lecture-codess/project/target/config-classes/**
+lecture-codess/project/target/resolution-cache/**
+
+patmat/target/streams/**
+
+patmat/project/target/resolution-cache/**
+
+patmat/target/streams/**
+
+patmat/project/project/target/config-classes/**
+
+patmat/project/target/config-classes/$440dd9d46c6eb8e55214.cache
+
+patmat/project/target/resolution-cache/reports/default-patmat-build-compile.xml
+
+patmat/project/target/streams/compile/incCompileSetup/$global/streams/inc_compile_2.10
+
+patmat/project/target/streams/compile/dependencyClasspath/$global/streams/export
+
+patmat/target/streams/runtime/managedClasspath/$global/streams/export
