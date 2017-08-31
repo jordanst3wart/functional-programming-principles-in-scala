@@ -50,7 +50,55 @@ class MyTestsSuite extends FunSuite {
 
   test("test makecodetree"){
     new TestMyFuncs {
-      assert( combine(codeTree2) ===  List(fork1 ,Leaf('a', 2)))
+      val fork2 = Fork(Leaf('c',1),Fork(Leaf('a',1),Leaf('b',1),List('a', 'b'),2),List('c', 'a', 'b'),3)
+      val fork3 = Fork(Fork(Leaf('b',1),Leaf('c',1),List('b', 'c'),2),Leaf('a',2),List('b', 'c', 'a'),4)
+      assert( createCodeTree(charList1) === fork2)
+      assert( createCodeTree(charList2) === fork3)
+    }
+  }
+
+  test("test decode"){
+    new TestMyFuncs {
+      //decode(tree: CodeTree, bits: List[Bit]): List[Char]
+      assert( decode(fork1,List(1,1,1)) === List('c','c','c'))
+      assert( decode(fork1,List(0,0,0)) === List('b','b','b'))
+      assert( decode(fork1,List(1,0,1)) === List('c','b','c'))
+    }
+  }
+
+  test("test decode secret"){
+    new TestMyFuncs {
+      //decode(tree: CodeTree, bits: List[Bit]): List[Char]
+      assert( decodedSecret === List('h', 'u', 'f', 'f', 'm', 'a', 'n', 'e', 's', 't', 'c', 'o', 'o', 'l'))
+    }
+  }
+
+  test("test encode"){
+    new TestMyFuncs {
+      assert( encode(fork1)(List('c','c','c') ) === List(1,1,1))
+      assert( encode(fork1)(List('b','b','b') ) === List(0,0,0) )
+      assert( encode(fork1)(List('c','b','c') ) === List(1,0,1) )
+    }
+  }
+
+  // testing what happens when a single Leaf is input as the codeTree
+  // it just returns List()
+  test("break encode"){
+    new TestMyFuncs {
+      assert( encode(Leaf('b', 1))(List('b') ) === List())
+    }
+  }
+
+  test("code table"){
+    val table1 = List(('a', List(0,0,0)),('b', List(1,0,1)))
+    assert(codeBits(table1)('b') === List(1,0,1))
+  }
+
+  test("quick encode"){
+    new TestMyFuncs {
+      assert(quickEncode(fork1)(List('c', 'c', 'c')) === List(1, 1, 1))
+      assert(quickEncode(fork1)(List('b', 'b', 'b')) === List(0, 0, 0))
+      assert(quickEncode(fork1)(List('c', 'b', 'c')) === List(1, 0, 1))
     }
   }
 

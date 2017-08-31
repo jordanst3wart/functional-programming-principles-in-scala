@@ -3,4 +3,5 @@ Done lectures
 - 3.2
 - 3.3
 
-- assignment
+- assignment -> need to fix assignment,
+

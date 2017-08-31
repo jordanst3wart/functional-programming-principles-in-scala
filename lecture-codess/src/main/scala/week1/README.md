@@ -6,3 +6,5 @@ Done lectures
 - 1.5
 - 1.6
 - 1.7
+
+all done

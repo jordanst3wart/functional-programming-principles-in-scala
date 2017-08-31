@@ -1,2 +1,6 @@
 *.class
 *.idea
+
+lecture-codess/project/target/**
+
+lecture-codess/target/**

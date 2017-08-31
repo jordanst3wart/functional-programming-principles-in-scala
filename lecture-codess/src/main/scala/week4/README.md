@@ -8,4 +8,4 @@ Done lectures
 - 4.7
 
 
-- assignment
+- assignment - in progress (not done yet)
