@@ -352,8 +352,8 @@ object Huffman {
     val curryIter = iter(tree) _ // <- what is the '_' for??? I guess it passes in other arguements??
 
     tree match {
-      case Fork(left,right,chars,weight) => curryIter(chars, List())
-      case Leaf(char,weight) => curryIter(List(char), List())
+      case Fork(left, right, chars, weight) => curryIter(chars, List())
+      case Leaf(char, weight) => curryIter(List(char), List())
     }
   }
   
@@ -361,6 +361,8 @@ object Huffman {
    * This function takes two code tables and merges them into one. Depending on how you
    * use it in the `convert` method above, this merge method might also do some transformations
    * on the two parameter code tables.
+   * TODO: I don't actually think the way I have implemented convert means, that I have to do a transformation.
+   * I don't really get what this function is for, and why if isn't private.
    */
   def mergeCodeTables(a: CodeTable, b: CodeTable): CodeTable = ???
   
