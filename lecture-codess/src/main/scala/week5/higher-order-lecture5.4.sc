@@ -1,3 +1,5 @@
+
+
 /*
 
 Recurring Patterns for Computations on Lists such as:
@@ -59,28 +61,55 @@ Same as xs filter (x => !p(x))
 
 xs partition p
 Same as xs filter p, xs filterNot p
+Or it splits the list at p.
 
 xs takeWhile p
+Takes the longest prefix
 
 
 xs dropWhile p
+Drops the longest prefix
 
 xs span p
-
+Combines takeWhile and dropWhile
 
  */
 
+object lectureHigherOrder {
+  def pack[T](xs: List[T]): List[List[T]] = xs match {
+    case Nil => Nil
+    case x :: xs1 => {
+      val list = xs.span(y => y == x)
+      list._1 :: pack(list._2)
+    }
+  }
 
-def pack[T](xs: List[T]): List[List[T]] = xs match {
-  case Nil => Nil
-  case x :: xs1 =>
-    xs1.partition(x1 => x1 == x)
+  def encode[T](xxs: List[T]): List[(T, Int)] = {
+    pack(xxs).
+    map(x => (x.head, x.length))
+  }
+  //println(pack(List("a","a","a","b","c","c","a")))
 }
 
+println(lectureHigherOrder.pack(List("a","a","a","b","c","c","a")))
+println(lectureHigherOrder.encode(List("a","a","a","b","c","c","a")))
 
 
 
 
 
+
+/*
+
+
+pack(List("a","a","a","b","c","c","a"))
+should give:
+List(List("a","a","a"), List("b"), List("c","c"), List("a"))
+
+
+encode(List("a", "a", "a", "b", "c", "c", "a"))
+List(("a", 3), ("b", 1), ("c", 2), ("a", 1))
+
+ */
 
 

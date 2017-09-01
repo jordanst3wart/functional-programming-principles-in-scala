@@ -28,6 +28,7 @@ object mergesort {
   }
 
   val nums = List(1,4,3,2)
+  // val fruits = List("apple","pineapple","orange","banana")
 
 }
 
