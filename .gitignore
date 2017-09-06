@@ -26,3 +26,9 @@ patmat/project/target/streams/compile/dependencyClasspath/$global/streams/export
 patmat/target/streams/runtime/managedClasspath/$global/streams/export
 
 objsets/target/streams/**
+
+*.cache
+
+objsets/target/streams/compile/packageSubmission/$global/streams/output
+
+objsets/target/streams/test/externalDependencyClasspath/$global/streams/export

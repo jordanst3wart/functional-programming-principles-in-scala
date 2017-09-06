@@ -15,12 +15,16 @@ import org.scalatest.time.Span
 class GoogleAndAppleSetSuite extends FunSuite with TimeLimitedTests {
   val timeLimit = Span(800, Millis)
 
+  test("all TweetSet"){
+    GoogleVsApple.allTweets
+  }
+
   test("apple TweetSet"){
-    GoogleVsApple.appleTweets
+    GoogleVsApple.appleTweets foreach println
   }
 
   test("google TweetSet"){
-    GoogleVsApple.googleTweets
+    GoogleVsApple.googleTweets foreach println
   }
 
   //test("apple & google") {
