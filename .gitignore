@@ -24,3 +24,5 @@ patmat/project/target/streams/compile/incCompileSetup/$global/streams/inc_compil
 patmat/project/target/streams/compile/dependencyClasspath/$global/streams/export
 
 patmat/target/streams/runtime/managedClasspath/$global/streams/export
+
+objsets/target/streams/**
