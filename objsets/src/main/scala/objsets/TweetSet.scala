@@ -84,8 +84,14 @@ abstract class TweetSet {
    */
 
   // I think this would be better done with an orderedList, or orderedTree
-    def descendingByRetweet: TweetList = {
-      // add to tail
+
+
+    def descendingByRetweet: TweetList /*
+      new Cons( mostRetweeted,remove(mostRetweeted).
+        descendingByRetweet
+      ) */
+    /*def descendingByRetweet: TweetList = {
+    // add to tail
 
     // next step is to order the tree / list based on retweets
 
@@ -101,7 +107,7 @@ abstract class TweetSet {
       }
 
       Iter(this, Nil) //new Cons(mostRetweeted, Nil)
-    }
+    }*/
 
     val isEmpty: Boolean
   
@@ -146,6 +152,8 @@ class Empty extends TweetSet {
   def lessRetweeted: Tweet = throw new java.util.NoSuchElementException
 
   def searchTree(op: (Int, Int) => Boolean, acc: Tweet): Tweet = acc
+
+  def descendingByRetweet: TweetList = Nil
 
   /**
    * The following methods are already implemented
@@ -197,6 +205,13 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
   }
 
   def mostRetweeted: Tweet = searchTree(( x, y ) => x > y, elem )
+
+
+  def descendingByRetweet: TweetList = {
+    new Cons( mostRetweeted, remove(mostRetweeted).
+      descendingByRetweet
+    )
+  }
 
   def lessRetweeted: Tweet = searchTree(( x, y ) => x < y, elem )
 
