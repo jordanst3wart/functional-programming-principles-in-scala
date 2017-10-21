@@ -3,6 +3,7 @@ package objsets
 import TweetReader._
 
 import scala.annotation.tailrec
+import math.Ordering
 
 /**
  * A class to represent tweets.
@@ -69,9 +70,10 @@ abstract class TweetSet {
    */
     def mostRetweeted: Tweet
 
-    def lessRetweeted: Tweet
 
-    def searchTree(op: (Int, Int) => Boolean, specialTweet: Tweet): Tweet
+    def searchTreeHighestInt( acc: Tweet): Tweet
+
+    //def searchTreeStr( target: Tweet ): Boolean
   
   /**
    * Returns a list containing all tweets of this set, sorted by retweet count
@@ -123,6 +125,8 @@ abstract class TweetSet {
    */
   def incl(tweet: Tweet): TweetSet
 
+  // def nothing(): TweetSet
+
   /**
    * Returns a new `TweetSet` which excludes `tweet`.
    */
@@ -131,7 +135,7 @@ abstract class TweetSet {
   /**
    * Tests if `tweet` exists in this `TweetSet`.
    */
-  def contains(tweet: Tweet): Boolean
+  //def contains(tweet: Tweet): Boolean
 
   /**
    * This method takes a function and applies it to every element in the set.
@@ -143,15 +147,17 @@ class Empty extends TweetSet {
 
   val isEmpty: Boolean = true
 
+  //def nothing(): TweetSet = new Nil
+
   def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet = acc
 
   def union(that: TweetSet): TweetSet = that
 
   def mostRetweeted: Tweet = throw new java.util.NoSuchElementException
 
-  def lessRetweeted: Tweet = throw new java.util.NoSuchElementException
+  def searchTreeHighestInt( acc: Tweet): Tweet = throw new java.util.NoSuchElementException
 
-  def searchTree(op: (Int, Int) => Boolean, acc: Tweet): Tweet = acc
+  //def searchTreeStr( target: Tweet ): Boolean = acc
 
   def descendingByRetweet: TweetList = Nil
 
@@ -159,7 +165,7 @@ class Empty extends TweetSet {
    * The following methods are already implemented
    */
 
-  def contains(tweet: Tweet): Boolean = false
+  //def contains(tweet: Tweet): Boolean = false
 
   def incl(tweet: Tweet): TweetSet = new NonEmpty(tweet, new Empty, new Empty)
 
@@ -178,8 +184,6 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
       else acc
     }
 
-    //val newAcc = filterElem() // current elem
-
     right.filterAcc(p,
       left.filterAcc(p,
         filterElem()
@@ -190,50 +194,63 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
   // maybe this could be implemented as an non-abstract method with a higher order function, but idk, maybe with foreach ???
   def union(that: TweetSet): TweetSet = left.union(right).union(that).incl(elem)
 
-  def searchTree(op: (Int, Int) => Boolean, acc: Tweet): Tweet = {
-    def cal(acc: Tweet): Tweet = {
-      if (op(elem.retweets, acc.retweets)) elem
-      else acc
+  def searchTreeHighestInt( x: Tweet): Tweet = {
+    if (x.retweets < elem.retweets) left.searchTreeHighestInt(x)
+    else if (elem.retweets < x.retweets) right.searchTreeHighestInt(x)
+    else {
+      if (x.text < elem.text) left.searchTreeHighestInt(x)
+      else if (elem.text < x.text) right.searchTreeHighestInt(x)
+      else elem
     }
-
-    left.searchTree(op,
-      right.searchTree(op,
-        cal(acc)
-      )
-    )
-
   }
 
-  def mostRetweeted: Tweet = searchTree(( x, y ) => x > y, elem )
+  /*def searchTreeStr( target: Tweet ): Boolean = {
+    if (elem.text == target.text) true
+    else {
+      left.searchTreeStr(target)
+      right.searchTreeStr(target)
+      false
+    }
+  }*/
 
 
-  def descendingByRetweet: TweetList = {
+
+  def mostRetweeted: Tweet = searchTreeHighestInt( elem )
+
+
+  // I don't know if insertion is slower when the data structure is created
+  def descendingByRetweet: TweetList = { Nil /*
     new Cons( mostRetweeted, remove(mostRetweeted).
-      descendingByRetweet
-    )
+      descendingByRetweet)*/
   }
-
-  def lessRetweeted: Tweet = searchTree(( x, y ) => x < y, elem )
 
   /**
    * The following methods are already implemented
    */
 
-  def contains(x: Tweet): Boolean =
-    if (x.text < elem.text) left.contains(x)
-    else if (elem.text < x.text) right.contains(x)
-    else true
+  //def contains(x: Tweet): Boolean = {
+  //  searchTreeStr( x )
+  //}
 
   def incl(x: Tweet): TweetSet = {
-    if (x.text < elem.text) new NonEmpty(elem, left.incl(x), right)
-    else if (elem.text < x.text) new NonEmpty(elem, left, right.incl(x))
-    else this
+    if (x.retweets < elem.retweets) new NonEmpty(elem, left.incl(x), right)
+    else if (elem.retweets < x.retweets) new NonEmpty(elem, left, right.incl(x))
+    else {
+      if (x.text < elem.text) new NonEmpty(elem, left.incl(x), right)
+      else if (elem.text < x.text) new NonEmpty(elem, left, right.incl(x))
+      else this
+    }
   }
 
-  def remove(tw: Tweet): TweetSet =
-    if (tw.text < elem.text) new NonEmpty(elem, left.remove(tw), right)
-    else if (elem.text < tw.text) new NonEmpty(elem, left, right.remove(tw))
-    else left.union(right)
+  def remove(x: Tweet): TweetSet = {
+    if (x.retweets < elem.retweets) new NonEmpty(elem, left.remove(x), right)
+    else if (elem.retweets < x.retweets) new NonEmpty(elem, left, right.remove(x))
+    else {
+      if (x.text < elem.text) new NonEmpty(elem, left.remove(x), right)
+      else if (elem.text < x.text) new NonEmpty(elem, left, right.remove(x))
+      else left.union(right)
+    }
+  }
 
   def foreach(f: Tweet => Unit): Unit = {
     f(elem)
@@ -274,21 +291,28 @@ object GoogleVsApple {
 
   lazy val allTweets: TweetSet = TweetReader.allTweets
 
+  //lazy val halfTweets: TweetSet = allTweets.filter()
+
+  //lazy val quarterTweets: TweetSet = TweetReader.allTweets
+
   // contains a word in google list
   //lazy val googleTweets: TweetSet = allTweets.filter( tweet => isIn(google,tweet))
-  lazy val googleTweets: TweetSet = allTweets.filter( tweet => google.exists(str => str.contains(tweet.text)))
+  lazy val googleTweets: TweetSet = TweetReader.allTweets // allTweets.filter( tweet => google.exists(str => str.contains(tweet.text)))
 
   // contains a word in the apple list
   //lazy val appleTweets: TweetSet = allTweets.filter( tweet => isIn(apple,tweet))
-  lazy val appleTweets: TweetSet = allTweets.filter( tweet => apple.exists(str => str.contains(tweet.text)))
+  lazy val appleTweets: TweetSet = TweetReader.allTweets //allTweets.filter( tweet => apple.exists(str => str.contains(tweet.text)))
   // exists method of List, and contains method of java.lang.String
-  
+
+  //appleTweets.concat(googleTweets)
+
   /**
    * A list of all tweets mentioning a keyword from either apple or google,
    * sorted by the number of retweets.
    */
-  lazy val trending: TweetList = googleTweets.union(appleTweets).descendingByRetweet
+  lazy val trending: TweetList = new Cons(new Tweet("","",0), Nil)//TweetReader.allTweets //googleTweets.union(appleTweets).descendingByRetweet
 
+  // build a tree based on retweets rather text
 }
 
 object Main extends App {

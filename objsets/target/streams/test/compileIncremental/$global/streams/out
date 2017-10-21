@@ -1,69 +1,15 @@
-[0m[[0mdebug[0m] [0mThe objsets.GoogleVsApple$ source file has the following regular definitions changed:[0m
-[0m[[0mdebug[0m] [0m	searchTree, descendingByRetweet, isIn.[0m
-[0m[[0mdebug[0m] [0mAll member reference dependencies will be considered within this context.[0m
-[0m[[0mdebug[0m] [0mFiles invalidated by inheriting from (external) objsets.GoogleVsApple$: Set(); now invalidating by inheritance (internally).[0m
-[0m[[0mdebug[0m] [0mGetting direct dependencies of all sources transitively invalidated by inheritance.[0m
-[0m[[0mdebug[0m] [0mGetting sources that directly depend on (external) objsets.GoogleVsApple$.[0m
-[0m[[0mdebug[0m] [0mNone of the modified names appears in /Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/src/test/scala/objsets/GoogleAndAppleSetSuite.scala. This dependency is not being considered for invalidation.[0m
-[0m[[0mdebug[0m] [0mThe objsets.Empty source file has the following regular definitions changed:[0m
-[0m[[0mdebug[0m] [0m	searchTree, descendingByRetweet, isIn.[0m
-[0m[[0mdebug[0m] [0mAll member reference dependencies will be considered within this context.[0m
-[0m[[0mdebug[0m] [0mFiles invalidated by inheriting from (external) objsets.Empty: Set(); now invalidating by inheritance (internally).[0m
-[0m[[0mdebug[0m] [0mGetting direct dependencies of all sources transitively invalidated by inheritance.[0m
-[0m[[0mdebug[0m] [0mGetting sources that directly depend on (external) objsets.Empty.[0m
-[0m[[0mdebug[0m] [0mThe following modified names cause invalidation of /Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/src/test/scala/objsets/TweetSetSuite.scala: Set(descendingByRetweet)[0m
-[0m[[0mdebug[0m] [0mThe objsets.TweetList source file has the following regular definitions changed:[0m
-[0m[[0mdebug[0m] [0m	searchTree, descendingByRetweet, isIn.[0m
-[0m[[0mdebug[0m] [0mAll member reference dependencies will be considered within this context.[0m
-[0m[[0mdebug[0m] [0mFiles invalidated by inheriting from (external) objsets.TweetList: Set(); now invalidating by inheritance (internally).[0m
-[0m[[0mdebug[0m] [0mGetting direct dependencies of all sources transitively invalidated by inheritance.[0m
-[0m[[0mdebug[0m] [0mGetting sources that directly depend on (external) objsets.TweetList.[0m
-[0m[[0mdebug[0m] [0mThe following modified names cause invalidation of /Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/src/test/scala/objsets/TweetSetSuite.scala: Set(descendingByRetweet)[0m
-[0m[[0mdebug[0m] [0mThe objsets.TweetSet source file has the following regular definitions changed:[0m
-[0m[[0mdebug[0m] [0m	searchTree, descendingByRetweet, isIn.[0m
-[0m[[0mdebug[0m] [0mAll member reference dependencies will be considered within this context.[0m
-[0m[[0mdebug[0m] [0mFiles invalidated by inheriting from (external) objsets.TweetSet: Set(); now invalidating by inheritance (internally).[0m
-[0m[[0mdebug[0m] [0mGetting direct dependencies of all sources transitively invalidated by inheritance.[0m
-[0m[[0mdebug[0m] [0mGetting sources that directly depend on (external) objsets.TweetSet.[0m
-[0m[[0mdebug[0m] [0mThe following modified names cause invalidation of /Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/src/test/scala/objsets/TweetSetSuite.scala: Set(descendingByRetweet)[0m
-[0m[[0mdebug[0m] [0mNone of the modified names appears in /Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/src/test/scala/objsets/GoogleAndAppleSetSuite.scala. This dependency is not being considered for invalidation.[0m
-[0m[[0mdebug[0m] [0mThe objsets.Tweet source file has the following regular definitions changed:[0m
-[0m[[0mdebug[0m] [0m	searchTree, descendingByRetweet, isIn.[0m
-[0m[[0mdebug[0m] [0mAll member reference dependencies will be considered within this context.[0m
-[0m[[0mdebug[0m] [0mFiles invalidated by inheriting from (external) objsets.Tweet: Set(); now invalidating by inheritance (internally).[0m
-[0m[[0mdebug[0m] [0mGetting direct dependencies of all sources transitively invalidated by inheritance.[0m
-[0m[[0mdebug[0m] [0mGetting sources that directly depend on (external) objsets.Tweet.[0m
-[0m[[0mdebug[0m] [0mThe following modified names cause invalidation of /Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/src/test/scala/objsets/TweetSetSuite.scala: Set(descendingByRetweet)[0m
 [0m[[0mdebug[0m] [0m[0m
 [0m[[0mdebug[0m] [0mInitial source changes: [0m
 [0m[[0mdebug[0m] [0m	removed:Set()[0m
 [0m[[0mdebug[0m] [0m	added: Set()[0m
-[0m[[0mdebug[0m] [0m	modified: Set(/Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/src/test/scala/objsets/GoogleAndAppleSetSuite.scala)[0m
-[0m[[0mdebug[0m] [0mInvalidated products: Set(/Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/target/scala-2.11/test-classes/objsets/GoogleAndAppleSetSuite$$anonfun$1.class, /Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/target/scala-2.11/test-classes/objsets/GoogleAndAppleSetSuite$$anonfun$3$$anonfun$apply$mcV$sp$2.class, /Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/target/scala-2.11/test-classes/objsets/GoogleAndAppleSetSuite$$anonfun$2$$anonfun$apply$mcV$sp$1.class, /Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/target/scala-2.11/test-classes/objsets/GoogleAndAppleSetSuite$$anonfun$3.class, /Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/target/scala-2.11/test-classes/objsets/GoogleAndAppleSetSuite$$anonfun$4.class, /Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/target/scala-2.11/test-classes/objsets/GoogleAndAppleSetSuite$$anonfun$2.class, /Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/target/scala-2.11/test-classes/objsets/GoogleAndAppleSetSuite.class)[0m
-[0m[[0mdebug[0m] [0mExternal API changes: API Changes: Set(NamesChange(objsets.GoogleVsApple$,ModifiedNames(regularNames = searchTree, descendingByRetweet, isIn, implicitNames = )), NamesChange(objsets.Empty,ModifiedNames(regularNames = searchTree, descendingByRetweet, isIn, implicitNames = )), NamesChange(objsets.TweetList,ModifiedNames(regularNames = searchTree, descendingByRetweet, isIn, implicitNames = )), NamesChange(objsets.TweetSet,ModifiedNames(regularNames = searchTree, descendingByRetweet, isIn, implicitNames = )), NamesChange(objsets.Tweet,ModifiedNames(regularNames = searchTree, descendingByRetweet, isIn, implicitNames = )))[0m
+[0m[[0mdebug[0m] [0m	modified: Set()[0m
+[0m[[0mdebug[0m] [0mInvalidated products: Set()[0m
+[0m[[0mdebug[0m] [0mExternal API changes: API Changes: Set()[0m
 [0m[[0mdebug[0m] [0mModified binary dependencies: Set()[0m
-[0m[[0mdebug[0m] [0mInitial directly invalidated sources: Set(/Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/src/test/scala/objsets/GoogleAndAppleSetSuite.scala)[0m
+[0m[[0mdebug[0m] [0mInitial directly invalidated sources: Set()[0m
 [0m[[0mdebug[0m] [0m[0m
 [0m[[0mdebug[0m] [0mSources indirectly invalidated by:[0m
-[0m[[0mdebug[0m] [0m	product: Set(/Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/src/test/scala/objsets/GoogleAndAppleSetSuite.scala)[0m
+[0m[[0mdebug[0m] [0m	product: Set()[0m
 [0m[[0mdebug[0m] [0m	binary dep: Set()[0m
-[0m[[0mdebug[0m] [0m	external source: Set(/Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/src/test/scala/objsets/TweetSetSuite.scala)[0m
-[0m[[0mdebug[0m] [0mAll initially invalidated sources: Set(/Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/src/test/scala/objsets/GoogleAndAppleSetSuite.scala, /Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/src/test/scala/objsets/TweetSetSuite.scala)[0m
-[0m[[0mdebug[0m] [0mRecompiling all 2 sources: invalidated sources (2) exceeded 50.0% of all sources[0m
-[0m[[0minfo[0m] [0mCompiling 2 Scala sources to /Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/target/scala-2.11/test-classes...[0m
-[0m[[0mdebug[0m] [0mGetting compiler-interface from component compiler for Scala 2.11.7[0m
-[0m[[0mdebug[0m] [0mGetting compiler-interface from component compiler for Scala 2.11.7[0m
-[0m[[0mdebug[0m] [0mRunning cached compiler 39b84787, interfacing (CompilerInterface) with Scala compiler version 2.11.7[0m
-[0m[[0mdebug[0m] [0mCalling Scala compiler with arguments  (CompilerInterface):[0m
-[0m[[0mdebug[0m] [0m	-deprecation[0m
-[0m[[0mdebug[0m] [0m	-bootclasspath[0m
-[0m[[0mdebug[0m] [0m	/Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents/Home/jre/classes:/Users/jordanstewart/.coursier/cache/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.7/scala-library-2.11.7.jar[0m
-[0m[[0mdebug[0m] [0m	-classpath[0m
-[0m[[0mdebug[0m] [0m	/Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/target/scala-2.11/test-classes:/Users/jordanstewart/Documents/programs/functional-programming-principles-in-scala/objsets/target/scala-2.11/classes:/Users/jordanstewart/.coursier/cache/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.7/scala-reflect-2.11.7.jar:/Users/jordanstewart/.coursier/cache/v1/https/repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar:/Users/jordanstewart/.coursier/cache/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.4/scala-parser-combinators_2.11-1.0.4.jar:/Users/jordanstewart/.coursier/cache/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.11/1.0.4/scala-xml_2.11-1.0.4.jar:/Users/jordanstewart/.coursier/cache/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest_2.11/2.2.4/scalatest_2.11-2.2.4.jar:/Users/jordanstewart/.coursier/cache/v1/https/repo1.maven.org/maven2/junit/junit/4.10/junit-4.10.jar[0m
-[0m[[0mdebug[0m] [0mScala compilation took 1.499180255 s[0m
-[0m[[0mdebug[0m] [0mNew invalidations:[0m
-[0m[[0mdebug[0m] [0m	Set()[0m
-[0m[[0mdebug[0m] [0mInitial set of included nodes: Set()[0m
-[0m[[0mdebug[0m] [0mPreviously invalidated, but (transitively) depend on new invalidations:[0m
-[0m[[0mdebug[0m] [0m	Set()[0m
-[0m[[0mdebug[0m] [0mAll newly invalidated sources after taking into account (previously) recompiled sources:Set()[0m
+[0m[[0mdebug[0m] [0m	external source: Set()[0m
+[0m[[0mdebug[0m] [0mAll initially invalidated sources: Set()[0m

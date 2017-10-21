@@ -65,7 +65,7 @@ class TweetSetSuite extends FunSuite {
 
   // -----------------------------------
   // I wrote this test
-  test("mostRetweeted & lestRetweeted: set6") {
+  /*test("mostRetweeted & lestRetweeted: set6") {
     new TestSets {
       val trends = set6.mostRetweeted
       assert(trends.retweets == 21)
@@ -73,7 +73,7 @@ class TweetSetSuite extends FunSuite {
       val trends2 = set6.lessRetweeted
       assert(trends2.retweets == 7)
     }
-  }
+  }*/
 
 
   // -----------------------------------
