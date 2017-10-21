@@ -35,32 +35,22 @@ object Anagrams {
    *  Note: you must use `groupBy` to implement this method!
    */
   def wordOccurrences(w: Word): Occurrences = {
-    // 1. method
-    // get letter
-    // check letter in word returning (char, count)
-    // strip letter from rest of word, returning new word
+    // might need to remove non-Letter characters
     val list = w.toLowerCase().toList
-    val setWords = list.toSet
 
-    setWords.map( char =>
-      list.map( letter =>
-      if (letter == char) (char, 1)
-      else (char, 0)).
-      foldRight(char,0)((pair1,pair2) => (pair1._1, pair1._2 + pair2._2))
-    )
-      //reduce( (pair1,pair2) => (pair1._1, ) )
-
-    // 2. method - not finished
-    // get a set from the word
-    // check each
+    list.groupBy((element: Char) => element).
+      map((x) => (x._1, x._2.length)).toList
   }
-  // given a String and a Char, return an (Char, Int)
-
-
-  // might need to be all lowercase
 
   /** Converts a sentence into its character occurrence list. */
-  def sentenceOccurrences(s: Sentence): Occurrences = ???
+  def sentenceOccurrences(s: Sentence): Occurrences = {
+    // concat sentences into a word
+    // use wordOccurrences on the sentence
+    // might need to remove special characters
+    val s1 = s.flatten
+
+
+  }
 
   /** The `dictionaryByOccurrences` is a `Map` from different occurrences to a sequence of all
    *  the words that have that occurrence count.

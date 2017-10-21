@@ -1,5 +1,30 @@
 import sbt._
 
+/**
+  * @param packageName     Used as the prefix for: (1) handout name, (2) the Scala package, (3) source folder.
+  * @param courseraId      Identifies the items and parts of the premium and non-premium assignments.
+  * @param maxScore        Maximum score that can be given for the assignment. Must match the value in the WebAPI.
+  * @param styleCheck      Configuration of the style checking for the assignment
+  * @param options         Options passed to the java process or coursera infrastructure. Following values are
+  *                        supported:
+  *
+  *                            NAME                               DEFAULT              DESCRIPTION
+  *                            Xms                                10m                  -Xms for jvm
+  *                            Xmx                                256m                 -Xmx for jvm, should less than `grader-memory`
+  *                            individualTimeout                  240                  time out of one test case
+  *                            totalTimeout                       850                  total time out, should less than `grader-timeout`
+  *                            grader-cpu                         1                    number of cpu for coursera infrastructure
+  *                            grader-memory                      1024                 memory for coursera infrastructure
+  *                            grader-timeout                     1200                 grading timeout for coursera infrastructure
+  */
+case class Assignment(
+  packageName: String,
+  courseraId: CourseraId,
+  maxScore: Double,
+  styleCheck: Option[StyleCheck] = Option.empty,
+  options: Map[String, String] = Map.empty
+)
+
 object Courses {
 
   /** Map of assignmentId -> Assignment details */
@@ -11,41 +36,41 @@ object Courses {
   /** Configurations of the assignments of all courses */
   val all: Courses = Map(
     "progfun1" -> {
-        val styleSheetPath = "scalastyle" :: "scalastyle_config.xml" :: Nil
-        Map(
-          "example" -> Assignment(
-            packageName = "example",
-            courseraId = CourseraId("g4unnjZBEeWj7SIAC5PFxA", "d5jxI", "xIz9O", None),
-            maxScore = 10d,
-            styleCheck = Some(StyleCheck(0.2, styleSheetPath))),
-          "recfun" -> Assignment(
-            packageName = "recfun",
-            courseraId = CourseraId("SNYuDzZEEeWNVyIAC92BaQ", "PzVVY", "Yljln", Some("Ey6Jf")),
-            maxScore = 10d,
-            styleCheck = Some(StyleCheck(0.2, styleSheetPath))),
-          "funsets" -> Assignment(
-            packageName = "funsets",
-            courseraId = CourseraId("FNHHMDfsEeWAGiIAC46PTg", "IljBE", "WWsVR", Some("BVa6a")),
-            maxScore = 10d,
-            styleCheck = Some(StyleCheck(0.2, styleSheetPath))),
-          "objsets" -> Assignment(
-            packageName = "objsets",
-            courseraId = CourseraId("6PTXvD99EeWAiCIAC7Pj9w", "7hlkb", "d1FGp", Some("Ogg05")),
-            maxScore = 10d,
-            styleCheck = Some(StyleCheck(0.2, styleSheetPath)),
-            options = Map("grader-timeout" -> "1800")),
-          "patmat" -> Assignment(
-            packageName = "patmat",
-            courseraId = CourseraId("BwkTtD9_EeWFZSIACtiVgg", "2KYZc", "ZjaI7", Some("uctOq")),
-            maxScore = 10d,
-            styleCheck = Some(StyleCheck(0.2, styleSheetPath))),
-          "forcomp" -> Assignment(
-            packageName = "forcomp",
-            courseraId = CourseraId("CPJe397VEeWLGArWOseZkw", "v2XIe", "lzaCV", Some("nVRPb")),
-            maxScore = 10d,
-            styleCheck = Some(StyleCheck(0.2, styleSheetPath)),
-            options = Map("grader-timeout" -> "1800"))
-        )
+      val styleSheetPath = "scalastyle" :: "scalastyle_config.xml" :: Nil
+      Map(
+        "example" -> Assignment(
+          packageName = "example",
+          courseraId = CourseraId("g4unnjZBEeWj7SIAC5PFxA", "d5jxI", "xIz9O", None),
+          maxScore = 10d,
+          styleCheck = Some(StyleCheck(0.2, styleSheetPath))),
+        "recfun" -> Assignment(
+          packageName = "recfun",
+          courseraId = CourseraId("SNYuDzZEEeWNVyIAC92BaQ", "PzVVY", "Yljln", Some("Ey6Jf")),
+          maxScore = 10d,
+          styleCheck = Some(StyleCheck(0.2, styleSheetPath))),
+        "funsets" -> Assignment(
+          packageName = "funsets",
+          courseraId = CourseraId("FNHHMDfsEeWAGiIAC46PTg", "IljBE", "WWsVR", Some("BVa6a")),
+          maxScore = 10d,
+          styleCheck = Some(StyleCheck(0.2, styleSheetPath))),
+        "objsets" -> Assignment(
+          packageName = "objsets",
+          courseraId = CourseraId("6PTXvD99EeWAiCIAC7Pj9w", "7hlkb", "d1FGp", Some("Ogg05")),
+          maxScore = 10d,
+          styleCheck = Some(StyleCheck(0.2, styleSheetPath)),
+          options = Map("grader-timeout" -> "1800")),
+        "patmat" -> Assignment(
+          packageName = "patmat",
+          courseraId = CourseraId("BwkTtD9_EeWFZSIACtiVgg", "2KYZc", "ZjaI7", Some("uctOq")),
+          maxScore = 10d,
+          styleCheck = Some(StyleCheck(0.2, styleSheetPath))),
+        "forcomp" -> Assignment(
+          packageName = "forcomp",
+          courseraId = CourseraId("CPJe397VEeWLGArWOseZkw", "v2XIe", "lzaCV", Some("nVRPb")),
+          maxScore = 10d,
+          styleCheck = Some(StyleCheck(0.2, styleSheetPath)),
+          options = Map("grader-timeout" -> "1800"))
+      )
     },
 
     "parprog1" -> {
@@ -146,31 +171,6 @@ object Courses {
   )
 
 }
-
-/**
-  * @param packageName     Used as the prefix for: (1) handout name, (2) the Scala package, (3) source folder.
-  * @param courseraId      Identifies the items and parts of the premium and non-premium assignments.
-  * @param maxScore        Maximum score that can be given for the assignment. Must match the value in the WebAPI.
-  * @param styleCheck      Configuration of the style checking for the assignment
-  * @param options         Options passed to the java process or coursera infrastructure. Following values are
-  *                        supported:
-  *
-  *                            NAME                               DEFAULT              DESCRIPTION
-  *                            Xms                                10m                  -Xms for jvm
-  *                            Xmx                                256m                 -Xmx for jvm, should less than `grader-memory`
-  *                            individualTimeout                  240                  time out of one test case
-  *                            totalTimeout                       850                  total time out, should less than `grader-timeout`
-  *                            grader-cpu                         1                    number of cpu for coursera infrastructure
-  *                            grader-memory                      1024                 memory for coursera infrastructure
-  *                            grader-timeout                     1200                 grading timeout for coursera infrastructure
-  */
-case class Assignment(
-  packageName: String,
-  courseraId: CourseraId,
-  maxScore: Double,
-  styleCheck: Option[StyleCheck] = Option.empty,
-  options: Map[String, String] = Map.empty
-)
 
 /**
   *
