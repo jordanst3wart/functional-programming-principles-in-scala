@@ -1,5 +1,7 @@
 package forcomp
 
+import scala.annotation.tailrec
+
 
 object Anagrams {
 
@@ -25,7 +27,7 @@ object Anagrams {
   /** The dictionary is simply a sequence of words.
    *  It is predefined and obtained as a sequence using the utility method `loadDictionary`.
    */
-  val dictionary: List[Word] = loadDictionary
+  lazy val dictionary: List[Word] = loadDictionary
 
   /** Converts the word into its character occurrence list.
    *
@@ -39,7 +41,7 @@ object Anagrams {
     val list = w.toLowerCase().toList
 
     list.groupBy((element: Char) => element).
-      map((x) => (x._1, x._2.length)).toList
+      map((x) => (x._1, x._2.length)).toList.sortWith(_._1 < _._1)
   }
 
   /** Converts a sentence into its character occurrence list. */
@@ -65,7 +67,23 @@ object Anagrams {
    *    List(('a', 1), ('e', 1), ('t', 1)) -> Seq("ate", "eat", "tea")
    *
    */
-  lazy val dictionaryByOccurrences: Map[Occurrences, List[Word]] = ???
+  lazy val dictionaryByOccurrences: Map[Occurrences, List[Word]] = {
+
+    @tailrec
+    def iter(mapOccurrencesList: Map[Occurrences, List[Word]], dictionary: List[Word]): Map[Occurrences, List[Word]] = {
+      if (dictionary.isEmpty) mapOccurrencesList
+      else {
+        val word = dictionary.head
+        val occur = wordOccurrences(word)
+        val newMap = mapOccurrencesList + (occur -> (word :: mapOccurrencesList(occur)))
+        iter(newMap,dictionary.tail)
+      }
+    }
+
+    // set default of empty list
+    val map: Map[Occurrences, List[Word]] = Map().withDefaultValue(List())
+    iter(map,dictionary)
+  }
 
   /** Returns all the anagrams of a given word. */
   def wordAnagrams(word: Word): List[Word] = ???
