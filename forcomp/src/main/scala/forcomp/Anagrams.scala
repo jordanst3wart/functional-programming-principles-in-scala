@@ -47,9 +47,7 @@ object Anagrams {
     // concat sentences into a word
     // use wordOccurrences on the sentence
     // might need to remove special characters
-    val s1 = s.flatten
-
-
+    wordOccurrences(s.reduce((x,y) => x + y))
   }
 
   /** The `dictionaryByOccurrences` is a `Map` from different occurrences to a sequence of all
