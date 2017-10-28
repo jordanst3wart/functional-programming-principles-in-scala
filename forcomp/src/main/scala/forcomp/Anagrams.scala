@@ -99,21 +99,67 @@ object Anagrams {
    *  Example: the subsets of the occurrence list `List(('a', 2), ('b', 2))` are:
    *
    *    List(
-   *      List(),
-   *      List(('a', 1)),
-   *      List(('a', 2)),
-   *      List(('b', 1)),
-   *      List(('a', 1), ('b', 1)),
-   *      List(('a', 2), ('b', 1)),
-   *      List(('b', 2)),
-   *      List(('a', 1), ('b', 2)),
-   *      List(('a', 2), ('b', 2))
+   *      List(),          List(('a', 1)),             List(('a', 2)),
+   *      List(('b', 1)),  List(('a', 1), ('b', 1)),   List(('a', 2), ('b', 1)),
+   *      List(('b', 2)),  List(('a', 1), ('b', 2)),   List(('a', 2), ('b', 2))
    *    )
    *
    *  Note that the order of the occurrence list subsets does not matter -- the subsets
    *  in the example above could have been displayed in some other order.
    */
-  def combinations(occurrences: Occurrences): List[Occurrences] = ???
+
+  // (k1 + 1)(k2 + 1)(k3 + 1) = number of occurences
+  def combinations(occurrences: Occurrences): List[Occurrences] = {
+
+    for {
+      (x1, y1) <- occurrences
+      (x2, y2) <- occurrences
+      if x1 < x2
+      i <- y1 to 0 by -1
+      j <- y2 to 0 by -1
+    } {
+      //if (i==0 && j==0) println("result: " + List())
+      println("occur1: " + (x1, i).toString() + " occur2: " + (x2, j).toString())
+    }
+    // the list itself
+    // first letter of the first pair removed
+    // second letter of the first pair removed
+    // n letter of the first pair removed
+    // first letter of the second pair removed
+    // first letter of the first pair removed
+    // second letter of the first pair removed
+    // n letter of the first pair removed
+    // second letter of the second pair removed
+
+    // https://docs.scala-lang.org/tour/for-comprehensions.html
+
+    //for {
+    // occur1 <- occurrences;
+    // occur2 <- occurrences;
+    // int <- occur._2 }
+    // yield {
+
+    //}
+
+    // 0, 1, 2 and 0, 1, 2
+
+    //
+    List()
+
+  }
+
+
+  // generate different varitions on each element of the list
+  // and combine all of them
+
+
+  /*{
+    // generate
+    for (occur <- occurrences) yield {
+      occur
+    }
+
+  }*/
 
   /** Subtracts occurrence list `y` from occurrence list `x`.
    *
@@ -126,6 +172,7 @@ object Anagrams {
    *  and has no zero-entries.
    */
   def subtract(x: Occurrences, y: Occurrences): Occurrences = ???
+  // Hint: you can use `foldLeft`, and `-`, `apply` and `updated` operations on `Map`.
 
   /** Returns a list of all anagram sentences of the given sentence.
    *
