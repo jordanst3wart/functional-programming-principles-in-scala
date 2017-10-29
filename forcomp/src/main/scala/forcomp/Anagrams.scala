@@ -137,13 +137,12 @@ object Anagrams {
       }
     }
 
-    def removeZeroElements(list: Occurrences): Occurrences = {
-      list.filter(item => item._2 > 0)
-    }
-
     iter(occurrences, List(List()))
   }
 
+  private def removeZeroElements(list: Occurrences): Occurrences = {
+    list.filter(item => item._2 > 0)
+  }
   /** Subtracts occurrence list `y` from occurrence list `x`.
    *
    *  The precondition is that the occurrence list `y` is a subset of
@@ -154,7 +153,18 @@ object Anagrams {
    *  Note: the resulting value is an occurrence - meaning it is sorted
    *  and has no zero-entries.
    */
-  def subtract(x: Occurrences, y: Occurrences): Occurrences = ???
+  def subtract(x: Occurrences, y: Occurrences): Occurrences = {
+
+    val list = for {
+      yElem <- y
+      xElem <- x
+    } yield {
+      if (yElem._1 == xElem._1) (xElem._1, xElem._2 - yElem._2)
+      else xElem
+    }
+
+    removeZeroElements(list)
+  }
   // Hint: you can use `foldLeft`, and `-`, `apply` and `updated` operations on `Map`.
 
   /** Returns a list of all anagram sentences of the given sentence.
