@@ -108,58 +108,41 @@ object Anagrams {
    *  in the example above could have been displayed in some other order.
    */
 
-  // (k1 + 1)(k2 + 1)(k3 + 1) = number of occurences
   def combinations(occurrences: Occurrences): List[Occurrences] = {
-
-    for {
-      (x1, y1) <- occurrences
-      (x2, y2) <- occurrences
-      if x1 < x2
-      i <- y1 to 0 by -1
-      j <- y2 to 0 by -1
-    } {
-      //if (i==0 && j==0) println("result: " + List())
-      println("occur1: " + (x1, i).toString() + " occur2: " + (x2, j).toString())
+    def combinatons(x: (Char, Int)): Occurrences = {
+      val pairs = for ( i <- x._2 to 0 by -1 ) yield {
+        (x._1,i)
+      }
+      pairs.toList
     }
-    // the list itself
-    // first letter of the first pair removed
-    // second letter of the first pair removed
-    // n letter of the first pair removed
-    // first letter of the second pair removed
-    // first letter of the first pair removed
-    // second letter of the first pair removed
-    // n letter of the first pair removed
-    // second letter of the second pair removed
 
-    // https://docs.scala-lang.org/tour/for-comprehensions.html
+    // accumulate pairs onto occurrences lists
+    def accumulate(list: Occurrences, accum: List[Occurrences]): List[Occurrences] ={
+      val something = for {
+        item <- list
+        item2 <- accum
+      } yield {
+        removeZeroElements(item2 :+ item) //removeZeroElements(item :: item2)
+      }
+      something
+    }
 
-    //for {
-    // occur1 <- occurrences;
-    // occur2 <- occurrences;
-    // int <- occur._2 }
-    // yield {
+    @tailrec
+    def iter( list: Occurrences, accum: List[Occurrences] ): List[Occurrences] = {
+      if (list.isEmpty) accum
+      else {
+        val combos = combinatons(list.head)
+        val newAccum = accumulate(combos, accum)
+        iter(list.tail, newAccum)
+      }
+    }
 
-    //}
+    def removeZeroElements(list: Occurrences): Occurrences = {
+      list.filter(item => item._2 > 0)
+    }
 
-    // 0, 1, 2 and 0, 1, 2
-
-    //
-    List()
-
+    iter(occurrences, List(List()))
   }
-
-
-  // generate different varitions on each element of the list
-  // and combine all of them
-
-
-  /*{
-    // generate
-    for (occur <- occurrences) yield {
-      occur
-    }
-
-  }*/
 
   /** Subtracts occurrence list `y` from occurrence list `x`.
    *
