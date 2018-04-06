@@ -1,5 +1,7 @@
 package forcomp
 
+import java.util.Dictionary
+
 import scala.annotation.tailrec
 
 
@@ -207,5 +209,45 @@ object Anagrams {
    *
    *  Note: There is only one anagram of an empty sentence.
    */
-  def sentenceAnagrams(sentence: Sentence): List[Sentence] = ???
+  def sentenceAnagrams(sentence: Sentence): List[Sentence] = {
+    if (sentence.isEmpty) List(Nil)
+    else {
+      // break into occurrences
+      val occurrences = sentenceOccurrences(sentence)
+      // get all combos
+      val combos = combinations(occurrences)
+      // get all words from occurrences
+      // probably want to be a map
+      val wordsByOccurrences = combos.map( elem =>
+        (elem, dictionaryByOccurrences(elem))
+      )//.toMap
+
+      //dictionary.foldLeft(dictionary.head)(subtract(occurrences,dictionary.head)
+
+      // get list of words for each grouping of occurrences
+      // could repeat I think
+
+      def iter(temp: Occurrences, reducedWordsByOccurrences: List[(Occurrences,List[Word])], accum:  List[Word]): List[Word] = {
+        if (temp.isEmpty || reducedWordsByOccurrences.isEmpty ) accum
+        else {
+          val map = reducedWordsByOccurrences.toMap
+          val newList = map(temp) ::: accum
+          val newTemp = subtract(temp, reducedWordsByOccurrences.head._1)
+          iter(newTemp,reducedWordsByOccurrences,newList)
+        }
+      }
+
+
+
+      //listOfWords
+
+      //subtract(combos)
+
+
+      print(anagramSentence)
+      //def iter()
+      // iterate through each combinations substracting letters when you find a word
+
+    }
+  }
 }
