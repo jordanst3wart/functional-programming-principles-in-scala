@@ -32,3 +32,4 @@ objsets/target/streams/**
 objsets/target/streams/compile/packageSubmission/$global/streams/output
 
 objsets/target/streams/test/externalDependencyClasspath/$global/streams/export
+target/test-reports/

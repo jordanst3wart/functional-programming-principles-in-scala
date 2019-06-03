@@ -192,7 +192,16 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
   }
 
   // maybe this could be implemented as an non-abstract method with a higher order function, but idk, maybe with foreach ???
-  def union(that: TweetSet): TweetSet = left.union(right).union(that).incl(elem)
+  //def union(that: TweetSet): TweetSet = left.union(right).union(that).incl(elem)
+  // https://www.geeksforgeeks.org/merge-two-balanced-binary-search-trees/
+  def union(that: TweetSet): TweetSet = {
+    // convert to lists and merge them
+    val list1 = that.descendingByRetweet
+    val list2 = this.descendingByRetweet
+    val list3 = merge(list1,list2)
+    list3
+
+  }
 
   def searchTreeHighestInt( x: Tweet): Tweet = {
     if (x.retweets < elem.retweets) left.searchTreeHighestInt(x)
@@ -217,11 +226,10 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
 
   def mostRetweeted: Tweet = searchTreeHighestInt( elem )
 
-
   // I don't know if insertion is slower when the data structure is created
-  def descendingByRetweet: TweetList = { Nil /*
+  def descendingByRetweet: TweetList = {
     new Cons( mostRetweeted, remove(mostRetweeted).
-      descendingByRetweet)*/
+      descendingByRetweet)
   }
 
   /**
@@ -259,6 +267,24 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
   }
 }
 
+
+def merge(a: TweetList, b: TweetList ): TweetList = {
+  def iter(accum: TweetList, reduce1: TweetList, reduce2 : TweetList ): TweetList = {
+    if( a.head > b.head ) iter(a.head :: accum,)
+    else iter(b.head :: accum, reduce1, reduc2)
+  }
+
+  // append b
+  if(a.isEmpty) b :::
+
+
+}
+
+
+def ToTweetSet(a: TweetList): TweetSet = {
+
+}
+
 trait TweetList {
   def head: Tweet
   def tail: TweetList
@@ -289,7 +315,10 @@ object GoogleVsApple {
     list.exists(str => str.contains(tweet.text))
   }*/
 
-  lazy val allTweets: TweetSet = TweetReader.allTweets
+  //lazy val allTweets: TweetSet = TweetReader.allTweets
+  println("HELLLLLO")
+  val allTweets: TweetSet = TweetReader.allTweets
+  println("WORLD")
 
   //lazy val halfTweets: TweetSet = allTweets.filter()
 
@@ -297,11 +326,11 @@ object GoogleVsApple {
 
   // contains a word in google list
   //lazy val googleTweets: TweetSet = allTweets.filter( tweet => isIn(google,tweet))
-  lazy val googleTweets: TweetSet = TweetReader.allTweets // allTweets.filter( tweet => google.exists(str => str.contains(tweet.text)))
+  lazy val googleTweets: TweetSet = allTweets.filter( tweet => google.exists(str => str.contains(tweet.text)))
 
   // contains a word in the apple list
   //lazy val appleTweets: TweetSet = allTweets.filter( tweet => isIn(apple,tweet))
-  lazy val appleTweets: TweetSet = TweetReader.allTweets //allTweets.filter( tweet => apple.exists(str => str.contains(tweet.text)))
+  lazy val appleTweets: TweetSet = allTweets.filter( tweet => apple.exists(str => str.contains(tweet.text)))
   // exists method of List, and contains method of java.lang.String
 
   //appleTweets.concat(googleTweets)
@@ -310,12 +339,15 @@ object GoogleVsApple {
    * A list of all tweets mentioning a keyword from either apple or google,
    * sorted by the number of retweets.
    */
-  lazy val trending: TweetList = new Cons(new Tweet("","",0), Nil)//TweetReader.allTweets //googleTweets.union(appleTweets).descendingByRetweet
+  //new Cons(new Tweet("","",0), Nil)//TweetReader.allTweets //
+  lazy val trending: TweetList = googleTweets.union(appleTweets).descendingByRetweet
 
   // build a tree based on retweets rather text
 }
 
 object Main extends App {
   // Print the trending tweets
+  println(java.time.LocalDate.now)
   GoogleVsApple.trending foreach println
+  println(java.time.LocalDate.now)
 }
