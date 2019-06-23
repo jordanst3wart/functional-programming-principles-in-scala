@@ -68,10 +68,10 @@ abstract class TweetSet {
    * Question: Should we implment this method here, or should it remain abstract
    * and be implemented in the subclasses?
    */
-    def mostRetweeted: Tweet
+    def lestRetweeted: Tweet
 
 
-    def searchTreeHighestInt( acc: Tweet): Tweet
+    //def searchTreeHighestInt( acc: Tweet): Tweet
 
     //def searchTreeStr( target: Tweet ): Boolean
   
@@ -153,7 +153,7 @@ class Empty extends TweetSet {
 
   def union(that: TweetSet): TweetSet = that
 
-  def mostRetweeted: Tweet = throw new java.util.NoSuchElementException
+  def lestRetweeted: Tweet = throw new java.util.NoSuchElementException
 
   def searchTreeHighestInt( acc: Tweet): Tweet = throw new java.util.NoSuchElementException
 
@@ -194,24 +194,45 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
   // maybe this could be implemented as an non-abstract method with a higher order function, but idk, maybe with foreach ???
   //def union(that: TweetSet): TweetSet = left.union(right).union(that).incl(elem)
   // https://www.geeksforgeeks.org/merge-two-balanced-binary-search-trees/
-  def union(that: TweetSet): TweetSet = {
+  /*def union(that: TweetSet): TweetSet = {
     // convert to lists and merge them
     val list1 = that.descendingByRetweet
-    val list2 = this.descendingByRetweet
-    val list3 = merge(list1,list2)
-    list3
-
-  }
-
-  def searchTreeHighestInt( x: Tweet): Tweet = {
-    if (x.retweets < elem.retweets) left.searchTreeHighestInt(x)
-    else if (elem.retweets < x.retweets) right.searchTreeHighestInt(x)
-    else {
-      if (x.text < elem.text) left.searchTreeHighestInt(x)
-      else if (elem.text < x.text) right.searchTreeHighestInt(x)
-      else elem
+    @tailrec
+    def iter(reduc: TweetList, accum: TweetSet): TweetSet ={
+      if(reduc.isEmpty) accum
+      else iter(reduc.tail, accum.incl(reduc.head))
     }
+    iter(list1,this)
+  }*/
+
+  /*def union(that: TweetSet): TweetSet = {
+    that.foreach( x => this.incl(x) )
+    this
+  }*/
+
+  /*
+  def union(that: TweetSet): TweetSet = {
+    that.foreach( elem => this.incl(elem) )
+    this.accum2( x => this.incl(x) )
+    this
+    this.accum2(x => this.incl(x))
   }
+
+  def accum2(f: Tweet => Tweetset): Tweetset= {
+    f(elem)
+  }*/
+
+  def union(that: TweetSet): TweetSet = {
+    var accum: TweetSet = this
+    that.foreach(x => accum = accum.incl(x))
+    accum
+  }
+
+  // left node is the highest
+  /*def searchTreeHighestInt( x: Tweet): Tweet = {
+    if (left.isEmpty) elem
+    else left.searchTreeHighestInt()
+  }*/
 
   /*def searchTreeStr( target: Tweet ): Boolean = {
     if (elem.text == target.text) true
@@ -223,22 +244,32 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
   }*/
 
 
-
-  def mostRetweeted: Tweet = searchTreeHighestInt( elem )
+  // left node is the highest
+  def lestRetweeted: Tweet = {
+    if (left.isEmpty) elem
+    else left.lestRetweeted
+  }
 
   // I don't know if insertion is slower when the data structure is created
+  // probably really slow as well
   def descendingByRetweet: TweetList = {
-    new Cons( mostRetweeted, remove(mostRetweeted).
-      descendingByRetweet)
+    /*new Cons( lestRetweeted, remove(lestRetweeted).
+      descendingByRetweet) */
+    @tailrec
+    def iter(accum: TweetList, remainder: TweetSet): TweetList = {
+      if (remainder.isEmpty) accum
+      else {
+        val lest = remainder.lestRetweeted
+        iter(new Cons(lest, accum), remainder.remove(lest))
+      }
+    }
+    val remainder = this
+    iter(Nil, remainder)
   }
 
   /**
    * The following methods are already implemented
    */
-
-  //def contains(x: Tweet): Boolean = {
-  //  searchTreeStr( x )
-  //}
 
   def incl(x: Tweet): TweetSet = {
     if (x.retweets < elem.retweets) new NonEmpty(elem, left.incl(x), right)
@@ -265,25 +296,17 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
     left.foreach(f)
     right.foreach(f)
   }
-}
 
+  def toTweetList: TweetList = {
+    //val list1 : TweetList = this.left.toTweetList
+    //val list2 : TweetList = this.right.toTweetList
 
-def merge(a: TweetList, b: TweetList ): TweetList = {
-  def iter(accum: TweetList, reduce1: TweetList, reduce2 : TweetList ): TweetList = {
-    if( a.head > b.head ) iter(a.head :: accum,)
-    else iter(b.head :: accum, reduce1, reduc2)
+    //list1
+    new Cons(this.elem, Nil)
   }
 
-  // append b
-  if(a.isEmpty) b :::
-
-
 }
 
-
-def ToTweetSet(a: TweetList): TweetSet = {
-
-}
 
 trait TweetList {
   def head: Tweet
@@ -315,12 +338,10 @@ object GoogleVsApple {
     list.exists(str => str.contains(tweet.text))
   }*/
 
-  //lazy val allTweets: TweetSet = TweetReader.allTweets
-  println("HELLLLLO")
-  val allTweets: TweetSet = TweetReader.allTweets
-  println("WORLD")
+  // descendingByRetweet
 
-  //lazy val halfTweets: TweetSet = allTweets.filter()
+  //lazy val allTweets: TweetSet = TweetReader.allTweets
+  val allTweets: TweetSet = TweetReader.allTweets
 
   //lazy val quarterTweets: TweetSet = TweetReader.allTweets
 
@@ -347,7 +368,5 @@ object GoogleVsApple {
 
 object Main extends App {
   // Print the trending tweets
-  println(java.time.LocalDate.now)
   GoogleVsApple.trending foreach println
-  println(java.time.LocalDate.now)
 }

@@ -70,6 +70,8 @@ object Anagrams {
    *
    */
   lazy val dictionaryByOccurrences: Map[Occurrences, List[Word]] = {
+    dictionary.groupBy(x => wordOccurrences(x))
+    /*
 
     @tailrec
     def iter(mapOccurrencesList: Map[Occurrences, List[Word]], dictionary: List[Word]): Map[Occurrences, List[Word]] = {
@@ -84,7 +86,7 @@ object Anagrams {
 
     // set default of empty list
     val map: Map[Occurrences, List[Word]] = Map().withDefaultValue(List())
-    iter(map,dictionary)
+    iter(map,dictionary)*/
   }
 
   /** Returns all the anagrams of a given word. */
@@ -209,6 +211,7 @@ object Anagrams {
    *
    *  Note: There is only one anagram of an empty sentence.
    */
+  /*
   def sentenceAnagrams(sentence: Sentence): List[Sentence] = {
     if (sentence.isEmpty) List(Nil)
     else {
@@ -249,5 +252,20 @@ object Anagrams {
       // iterate through each combinations substracting letters when you find a word
 
     }
+  }*/
+
+  def sentenceAnagrams(sentence: Sentence): List[Sentence] = {
+    def cal(ys: Occurrences): List[Sentence] = {
+      if(ys.isEmpty) List(List())
+      else
+        for {
+          s <- combinations(ys) filter dictionaryByOccurrences.contains;
+          t <- dictionaryByOccurrences(s);
+          p <- cal(subtract(ys,s))
+        } yield {
+          t :: p
+        }
+    }
+    cal(sentenceOccurrences(sentence))
   }
 }
