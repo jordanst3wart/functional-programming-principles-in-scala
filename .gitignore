@@ -36,3 +36,4 @@ target/test-reports/
 target/streams/test/unmanagedClasspath/$global/streams/export
 target/streams/test/test/$global/streams/out
 *.xml
+target
