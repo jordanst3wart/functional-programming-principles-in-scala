@@ -158,16 +158,10 @@ object Anagrams {
    *  and has no zero-entries.
    */
   def subtract(x: Occurrences, y: Occurrences): Occurrences = {
-
-    val list = for {
-      yElem <- y
-      xElem <- x
-    } yield {
-      if (yElem._1 == xElem._1) (xElem._1, xElem._2 - yElem._2)
-      else xElem
-    }
-
-    removeZeroElements(list)
+    val xMap = x.toMap
+    val yMap = y.toMap.withDefaultValue(0)
+    val subtractedMap = xMap.map( elem => (elem._1, xMap(elem._1) - yMap(elem._1))).toList
+    removeZeroElements(subtractedMap)
   }
   // Hint: you can use `foldLeft`, and `-`, `apply` and `updated` operations on `Map`.
 
