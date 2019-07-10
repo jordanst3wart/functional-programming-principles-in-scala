@@ -113,7 +113,7 @@ object Anagrams {
    */
 
   def combinations(occurrences: Occurrences): List[Occurrences] = {
-    def combinatons(x: (Char, Int)): Occurrences = {
+    def combinations_other(x: (Char, Int)): Occurrences = {
       val pairs = for ( i <- x._2 to 0 by -1 ) yield {
         (x._1,i)
       }
@@ -135,7 +135,7 @@ object Anagrams {
     def iter( list: Occurrences, accum: List[Occurrences] ): List[Occurrences] = {
       if (list.isEmpty) accum
       else {
-        val combos = combinatons(list.head)
+        val combos = combinations_other(list.head)
         val newAccum = accumulate(combos, accum)
         iter(list.tail, newAccum)
       }
