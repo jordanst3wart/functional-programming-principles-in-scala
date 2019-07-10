@@ -131,8 +131,6 @@ class AnagramsSuite extends FunSuite  {
     assert(subtract(larrrrd, arrr) === lrd)
   }
 
-
-/*
   test("sentence anagrams: []") {
     val sentence = List()
     assert(sentenceAnagrams(sentence) === List(Nil))
@@ -191,5 +189,5 @@ class AnagramsSuite extends FunSuite  {
     )
     assert(sentenceAnagrams(sentence).toSet === anas.toSet)
   }
-*/
+
 }
