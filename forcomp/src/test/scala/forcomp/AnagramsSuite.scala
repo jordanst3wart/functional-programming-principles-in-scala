@@ -150,7 +150,27 @@ class AnagramsSuite extends FunSuite  {
     val sentence = List("inside")
     val anas = List(
       List("Indies"),
-      List("inside")
+      List("in", "dies"),
+      List("is", "dine"),
+      List("De", "is", "in"),
+      List("Enid", "is"),
+      List("in", "side"),
+      List("Ed", "in", "is"),
+      List("is", "De", "in"),
+      List("is", "Enid"),
+      List("in", "is", "Ed"),
+      List("is", "in", "Ed"),
+      List("inside"),
+      List("is", "Ed", "in"),
+      List("De", "in", "is"),
+      List("side", "in"),
+      List("in", "De", "is"),
+      List("in", "is", "De"),
+      List("is", "in", "De"),
+      List("Ed", "is", "in"),
+      List("dine", "is"),
+      List("dies", "in"),
+      List("in", "Ed", "is")
     )
     assert(sentenceAnagrams(sentence).toSet === anas.toSet)
   }
