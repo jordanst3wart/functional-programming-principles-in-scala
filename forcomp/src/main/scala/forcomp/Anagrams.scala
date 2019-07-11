@@ -48,10 +48,13 @@ object Anagrams {
 
   /** Converts a sentence into its character occurrence list. */
   def sentenceOccurrences(s: Sentence): Occurrences = {
+
     // concat sentences into a word
     // use wordOccurrences on the sentence
     // might need to remove special characters
-    wordOccurrences(s.reduce((x,y) => x + y))
+    if (s.isEmpty) List()
+    else if (s.tail.isEmpty) wordOccurrences(s.head)
+    else wordOccurrences(s.reduce((x,y) => x + y))
   }
 
   /** The `dictionaryByOccurrences` is a `Map` from different occurrences to a sequence of all
@@ -69,8 +72,9 @@ object Anagrams {
    *    List(('a', 1), ('e', 1), ('t', 1)) -> Seq("ate", "eat", "tea")
    *
    */
+    // Occurrences need to be sorted
   lazy val dictionaryByOccurrences: Map[Occurrences, List[Word]] = {
-    dictionary.groupBy(x => wordOccurrences(x))
+    dictionary.groupBy(x => wordOccurrences(x)) // missed the reverse index ('m',1),('y',1) -> my however ('y',1),('m',1) -> my doesn't
     /*
 
     @tailrec
@@ -249,17 +253,29 @@ object Anagrams {
   }*/
 
   def sentenceAnagrams(sentence: Sentence): List[Sentence] = {
+
+
+
     def cal(ys: Occurrences): List[Sentence] = {
-      if(ys.isEmpty) List(List())
-      else
+      if(ys.isEmpty) List(List()) // need to be List(Nil)
+      else {
+        println(ys)
+        //val OccurrencesInDictionaryFromSentence = combinations(ys).filter( x => dictionaryByOccurrences.contains(x))
+        //val wordsFromSentence = OccurrencesInDictionaryFromSentence.map( occ => dictionaryByOccurrences(occ)  )
+        //val foo = combinations(ys).filter( x => dictionaryByOccurrences.contains(x));
+
+        // need to sort occurrences for dictionary... :|
+        // TODO should clean up sorting
         for {
-          s <- combinations(ys) filter dictionaryByOccurrences.contains;
-          t <- dictionaryByOccurrences(s);
-          p <- cal(subtract(ys,s))
+          occurrence <- combinations(ys).filter( x => dictionaryByOccurrences.contains(x.sortWith(_._1 < _._1)));
+          word <- dictionaryByOccurrences(occurrence.sortWith(_._1 < _._1));
+          sentence <- cal( subtract(ys, occurrence) )
         } yield {
-          t :: p
+          word :: sentence
         }
+      }
     }
+
     cal(sentenceOccurrences(sentence))
   }
 }

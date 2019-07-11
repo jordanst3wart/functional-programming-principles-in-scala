@@ -146,10 +146,11 @@ class AnagramsSuite extends FunSuite  {
   }
 
   // 2 words
-  test("sentence anagrams: i in") {
+  test("sentence anagrams: inside") {
     val sentence = List("inside")
     val anas = List(
-      List("i","in")
+      List("Indies"),
+      List("inside")
     )
     assert(sentenceAnagrams(sentence).toSet === anas.toSet)
   }
@@ -158,13 +159,14 @@ class AnagramsSuite extends FunSuite  {
   test("sentence anagrams: in it") {
     val sentence = List("init")
     val anas = List(
-      List("it","in")
+      List("it","in"),
+      List("in","it")
     )
     assert(sentenceAnagrams(sentence).toSet === anas.toSet)
   }
 
-  test("sentence anagrams: Linux rulez") {
-    val sentence = List("Linux", "rulez")
+  test("sentence anagrams: Linuxrulez") {
+    val sentence1 = List("Linuxrulez")
     val anas = List(
       List("Rex", "Lin", "Zulu"),
       List("nil", "Zulu", "Rex"),
@@ -187,7 +189,39 @@ class AnagramsSuite extends FunSuite  {
       List("rulez", "Linux"),
       List("Linux", "rulez")
     )
-    assert(sentenceAnagrams(sentence).toSet === anas.toSet)
+    assert(sentenceAnagrams(sentence1).toSet === anas.toSet)
   }
+
+
+  test("sentence anagrams: Linux rulez") {
+    val sentence1 = List("Yes", "man")
+    val anas = List(
+      List("en", "as", "my"),
+      List("en", "my", "as"),
+      List("man", "yes"),
+      List("men", "say"),
+      List("as", "en", "my"),
+      List("as", "my", "en"),
+      List("sane", "my"),
+      List("Sean", "my"),
+      List("my", "en", "as"),
+      List("my", "as", "en"),
+      List("my", "sane"),
+      List("my", "Sean"),
+      List("say", "men"),
+      List("yes", "man")
+    )
+    assert(sentenceAnagrams(sentence1).toSet === anas.toSet)
+  }
+
+/*
+  test("sentence anagrams: I love you") {
+    val sentence1 = List("I", "love","you")
+    val anas = List(
+      List("You", "olive"),
+      List("I","love", "you")
+    )
+    assert(sentenceAnagrams(sentence1).toSet === anas.toSet)
+  }*/
 
 }
